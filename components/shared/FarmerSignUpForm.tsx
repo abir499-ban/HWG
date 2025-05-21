@@ -1,17 +1,53 @@
 "use client"
-import React from 'react'
-import {z} from 'zod'
+import React, {useState} from 'react'
+import { Eye, EyeOff, User, IdCard, FileText, Key, Lock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {Button} from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { FarmerFormSchema, FarmerFormType } from '@/utils/Farmer.schema'
+import { format } from "date-fns";
 
 
 const FarmerSignUpForm = () => {
+  const [calendarOpen, setcalendarOpen] = useState(false)
+  const [showPassword, setshowPassword] = useState(false)
+
+  const {
+    register,
+    formState: { errors, isSubmitting },
+    setValue,
+    watch,
+    reset,
+  } = useForm<FarmerFormType>({
+    resolver: zodResolver(FarmerFormSchema),
+    defaultValues: {
+      name: "",
+      digitalId: "",
+      aadharCard: "",
+      dob: undefined,
+      bankAccount: "",
+      password: "",
+    }
+  })
+
+  const dob = watch('dob')
+
+  const SubmitFn = async (data: FarmerFormType) => {
+    try {
+      console.table(data)
+      reset()
+    } catch (error) {
+      console.log("error " + error)
+    }
+  }
+
 
   return (
-    <form className="space-y-5" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+    <form className="space-y-5" autoComplete="off">
       {/* Name */}
       <div>
         <Label htmlFor="name" className="flex items-center gap-1">
@@ -52,14 +88,14 @@ const FarmerSignUpForm = () => {
         </Label>
         <Input
           id="aadhaar"
-          {...register("aadhaar")}
+          {...register("aadharCard")}
           placeholder="12-digit Aadhaar number"
           className="mt-1"
           maxLength={12}
           inputMode="numeric"
         />
-        {errors.aadhaar && (
-          <p className="text-red-500 text-xs mt-1">{errors.aadhaar.message}</p>
+        {errors.aadharCard && (
+          <p className="text-red-500 text-xs mt-1">{errors.aadharCard.message}</p>
         )}
       </div>
       {/* Date of Birth */}
@@ -68,7 +104,7 @@ const FarmerSignUpForm = () => {
           <Key className="w-4 h-4 text-green-700" />
           Date of Birth
         </Label>
-        <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+        <Popover open={calendarOpen} onOpenChange={setcalendarOpen}>
           <PopoverTrigger asChild>
             <Button
               type="button"
@@ -87,7 +123,7 @@ const FarmerSignUpForm = () => {
               selected={dob}
               onSelect={(date) => {
                 setValue("dob", date as Date, { shouldValidate: true });
-                setCalendarOpen(false);
+                setcalendarOpen(false);
               }}
               disabled={(date) =>
                 date > new Date() || date < new Date("1900-01-01")
@@ -133,7 +169,7 @@ const FarmerSignUpForm = () => {
           />
           <button
             type="button"
-            onClick={() => setShowPassword((v) => !v)}
+            onClick={() => setshowPassword((v) => !v)}
             className="absolute right-2 top-2 text-gray-400 hover:text-green-700"
             tabIndex={-1}
           >
@@ -155,6 +191,6 @@ const FarmerSignUpForm = () => {
   );
 }
 
-}
+
 
 export default FarmerSignUpForm
