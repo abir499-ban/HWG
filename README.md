@@ -29,6 +29,15 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+---------------------------------------------------------
+Routes:
+1.  Farmer Sign Up : ```/api/farmer/signup``` :
+    Payload Required : name, digitalId, aadharCard, dob, bankAccount, password
+    Expected Return : Success Json message
+3.  Farmer Log In : ```api/farmer/login```:
+     Payload Required : digitalId,password
+    Expected Return : username and JWT accessToken in JSON message.
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
