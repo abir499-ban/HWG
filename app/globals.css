@@ -3,6 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.text-stroke {
+  -webkit-text-stroke: 0.01px black;
+  color: white;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
