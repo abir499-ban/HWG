@@ -9,4 +9,10 @@ export const FarmerFormSchema = z.object({
     password: z.string().min(6, "Password should be at least 6 characters")
 })
 
+export const FarmerFormLoginSchema = z.object({
+    digitalID : z.string().min(5, "Digital Farmer ID is required"),
+    password: z.string().min(6, "Password should be at least 6 characters")
+})
+
 export type FarmerFormType = z.infer<typeof FarmerFormSchema>
+export type farmerFormLoginType = z.infer<typeof FarmerFormLoginSchema>
