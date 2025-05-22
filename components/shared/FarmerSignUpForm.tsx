@@ -9,7 +9,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { FarmerFormSchema, FarmerFormType } from '@/utils/Farmer.schema'
-import { format } from "date-fns";
 
 
 const FarmerSignUpForm = () => {
@@ -22,6 +21,7 @@ const FarmerSignUpForm = () => {
     setValue,
     watch,
     reset,
+    handleSubmit,
   } = useForm<FarmerFormType>({
     resolver: zodResolver(FarmerFormSchema),
     defaultValues: {
@@ -37,17 +37,37 @@ const FarmerSignUpForm = () => {
   const dob = watch('dob')
 
   const SubmitFn = async (data: FarmerFormType) => {
+    //console.log(process.env.NEXT_PUBLIC_BACKEND_BASE_URL)
     try {
-      console.table(data)
-      reset()
+      //console.table(data)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/farmer/signup`, {
+        method : 'POST',
+        headers:{
+          'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify(data)
+      })
+
+      const response = await res.json()
+      if(res.status === 200){
+        alert("Sign up sucessfull")
+        console.log(response)
+      }else{
+        alert("Sign up failed")
+        console.log(response)
+      }
+      
     } catch (error) {
       console.log("error " + error)
+    }
+    finally{
+      reset()
     }
   }
 
 
   return (
-    <form className="space-y-5" autoComplete="off">
+    <form className="space-y-5" onSubmit={handleSubmit(SubmitFn)} autoComplete="off">
       {/* Name */}
       <div>
         <Label htmlFor="name" className="flex items-center gap-1">
@@ -92,7 +112,7 @@ const FarmerSignUpForm = () => {
           placeholder="12-digit Aadhaar number"
           className="mt-1"
           maxLength={12}
-          inputMode="numeric"
+          type='string'
         />
         {errors.aadharCard && (
           <p className="text-red-500 text-xs mt-1">{errors.aadharCard.message}</p>
@@ -101,7 +121,7 @@ const FarmerSignUpForm = () => {
       {/* Date of Birth */}
       <div>
         <Label className="flex items-center gap-1 mb-1">
-          <Key className="w-4 h-4 text-green-700" />
+          <Key className="w-4 h-4 text-green-700" size={4}/>
           Date of Birth
         </Label>
         <Popover open={calendarOpen} onOpenChange={setcalendarOpen}>
@@ -114,21 +134,20 @@ const FarmerSignUpForm = () => {
                 (!dob ? "text-muted-foreground" : "")
               }
             >
-              {dob ? format(dob, "PPP") : <span>Pick a date</span>}
+              {dob ? <span>{new Date(dob).toDateString()}</span> : <span>Pick a date</span>}
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
             <Calendar
               mode="single"
               selected={dob}
-              onSelect={(date) => {
+              onSelect={(date: Date | undefined) => {
                 setValue("dob", date as Date, { shouldValidate: true });
-                setcalendarOpen(false);
+                setcalendarOpen(false); 
               }}
               disabled={(date) =>
                 date > new Date() || date < new Date("1900-01-01")
               }
-              initialFocus
               className="p-3 pointer-events-auto"
             />
           </PopoverContent>
@@ -169,9 +188,9 @@ const FarmerSignUpForm = () => {
           />
           <button
             type="button"
-            onClick={() => setshowPassword((v) => !v)}
+            onClick={() => setshowPassword((prev) => !prev)}
             className="absolute right-2 top-2 text-gray-400 hover:text-green-700"
-            tabIndex={-1}
+            tabIndex={-1} 
           >
             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
@@ -182,7 +201,7 @@ const FarmerSignUpForm = () => {
       </div>
       <Button
         type="submit"
-        className="w-full mt-4 bg-green-700 hover:bg-green-800 text-white"
+        className="w-full mt-4 bg-green-700 hover:bg-green-800 text-white hover:cursor-pointer"
         disabled={isSubmitting}
       >
         {isSubmitting ? "Signing Up..." : "Sign Up"}
