@@ -6,12 +6,15 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FarmerFormLoginSchema, farmerFormLoginType, FarmerFormType } from '@/utils/Farmer.schema'
+import { FarmerFormLoginSchema, farmerFormLoginType } from '@/utils/Farmer.schema'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 
 const Signin = () => {
     const [showPassword, setshowPassword] = React.useState(false)
-    const { register, formState: { errors, isSubmitting } , handleSubmit} = useForm<farmerFormLoginType>({
+    const router = useRouter()
+    const { register, formState: { errors, isSubmitting }, handleSubmit } = useForm<farmerFormLoginType>({
         resolver: zodResolver(FarmerFormLoginSchema),
         defaultValues: {
             digitalID: "",
@@ -19,8 +22,24 @@ const Signin = () => {
         }
     })
 
-    const SubmitFn = async(data : FarmerFormType) =>{
-        
+    const SubmitFn = async (data: farmerFormLoginType) => {
+        try {
+            const res = await signIn("credentials", {
+                redirect: false,
+                digitalID: data.digitalID,
+                password: data.password
+            })
+            if(res?.ok){
+                console.log("farmer login successfull")
+                router.push('/')
+            }else{
+                console.log("Error in Login")
+            }
+            
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
     return (
         <div className="min-h-screen bg-gradient-to-r from-[#F2FCE2] via-[#FEF7CD] to-[#FEC6A1] flex items-center justify-center">
@@ -38,8 +57,8 @@ const Signin = () => {
                         <Input
                             id="digitalId"
                             {...register("digitalID")}
-                            placeholder="e.g. DFI2024001"
-                            className="mt-1"
+                            placeholder="Enter youtr Digital Farmer ID"
+                            className="w-full mt-1"
                         />
                         {errors.digitalID && (
                             <p className="text-red-500 text-xs mt-1">{errors.digitalID.message}</p>
@@ -56,7 +75,7 @@ const Signin = () => {
                                 id="password"
                                 {...register("password")}
                                 type={showPassword ? "text" : "password"}
-                                placeholder="Create a password"
+                                placeholder="Enter your password"
                                 className="mt-1 pr-10"
                             />
                             <button

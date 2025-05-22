@@ -26,7 +26,7 @@ export const authOptions: NextAuthOptions = {
                 if (!credentials) return null
                 const { digitalID, password } = credentials
 
-                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}`, {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/farmer/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
