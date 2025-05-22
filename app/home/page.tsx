@@ -17,7 +17,7 @@ export default function Homr(){
    }, [status])
    
     if(status === 'loading'){
-        return <Loader className='size-56'/>
+        return <Loader className='flex flex-row justify-center  items-center size-56'/>
     }
 
     return(
