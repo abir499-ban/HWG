@@ -1,5 +1,5 @@
 import React from 'react'
-import {useRouter} from 'next/navigation'
+import Link from 'next/link'
 
 
 const Index = () => {
@@ -10,13 +10,12 @@ const Index = () => {
         <p className="text-xl text-gray-700 mb-8">
           Funding the agriculture of Gujarat.
         </p>
-        <a
-          
+        <Link
+          href="/auth/signup"
           className="inline-flex items-center px-6 py-3 rounded-lg shadow-md bg-green-700 text-white font-semibold hover:bg-green-800 transition"
         >
-        
           Farmer Sign Up
-        </a>
+        </Link>
       </div>
     </div>
   );
