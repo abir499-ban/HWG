@@ -8,7 +8,6 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { farmerFormLoginType, FarmerFormSchema, FarmerFormType } from '@/utils/Farmer.schema'
 import { LoanSharkFormSchema, LoanSharkFormType } from '@/utils/LoanShark.schema';
 
 

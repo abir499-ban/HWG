@@ -9,5 +9,11 @@ export const LoanSharkFormSchema= z.object({
     password: z.string().min(6, "Password should be at least 6 characters")
 })
 
+export const LoanSharkLogInSchema = z.object({
+    aadharCard: z.string().length(12, "Aadhar number must be exactly 12 digits").regex(/^\d{12}$/, "Aadhar number must contain only digits"),
+    password: z.string().min(6, "Password should be at least 6 characters")
+})
+
 
 export type LoanSharkFormType = z.infer<typeof LoanSharkFormSchema>
+export type LoanSharkLogInType = z.infer<typeof LoanSharkLogInSchema>

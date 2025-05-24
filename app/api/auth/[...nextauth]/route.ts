@@ -17,6 +17,7 @@ declare module 'next-auth' {
 export const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
+            id : 'farmer_login',
             name: 'DigitalFarmerID',
             credentials: {
                 digitalID: { name: 'Digital farmer Id', type: "text" },
@@ -43,6 +44,32 @@ export const authOptions: NextAuthOptions = {
                 return null;
 
             },
+        }),
+        CredentialsProvider({
+            id : 'loan_shark_login',
+            name: 'LoanSharkLogin',
+            credentials:{
+                aadharCard : {name : 'Aadhaar Card Number' , type : 'text'},
+                password : { name : 'Password' , type : 'password'}
+            },
+            authorize: async(credentials : Record<string , string> | undefined , req)=>{
+                if(!credentials) return null
+                const {aadharCard , password} = credentials
+
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/loanshark/login` , {
+                    method : 'POST',
+                    headers:{
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({
+                        aadharCard , password
+                    })
+                })
+
+                const data = await res.json()
+                if(res?.ok && data) return data
+                return null
+            }
         })
     ],
 

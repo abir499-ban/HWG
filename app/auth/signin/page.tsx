@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { FarmerFormLoginSchema, farmerFormLoginType } from '@/utils/Farmer.schema'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 
 const Signin = () => {
@@ -24,7 +25,7 @@ const Signin = () => {
 
     const SubmitFn = async (data: farmerFormLoginType) => {
         try {
-            const res = await signIn("credentials", {
+            const res = await signIn("farmer_login", {
                 redirect: false,
                 digitalID: data.digitalID,
                 password: data.password
@@ -42,7 +43,7 @@ const Signin = () => {
         }
     }
     return (
-        <div className="min-h-screen bg-gradient-to-r from-[#F2FCE2] via-[#FEF7CD] to-[#FEC6A1] flex items-center justify-center">
+        <div className="min-h-screen bg-gradient-to-r from-[#F2FCE2] via-[#FEF7CD] to-green-200 flex items-center justify-center">
             <div className="bg-white rounded-xl shadow-xl w-full max-w-lg p-8">
                 <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center text-green-700">
                     Farmer Log In
@@ -100,6 +101,7 @@ const Signin = () => {
                         {isSubmitting ? "Signing Up..." : "Sign In"}
                     </Button>
                 </form>
+                <Link href='/auth/loanshark/signin' className='text-xm text-muted-foreground font-semibold underline'>Login as Loan Shark</Link>
             </div>
         </div>
     );
