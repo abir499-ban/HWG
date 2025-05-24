@@ -1,8 +1,9 @@
 'use client'
-import {useSession} from 'next-auth/react'
+import {useSession, signOut} from 'next-auth/react'
 import React , { useEffect } from 'react'
 import {useRouter} from 'next/navigation'
 import {Loader} from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 
 export default function Homr(){
@@ -24,6 +25,7 @@ export default function Homr(){
         <div>
             <h1>This is a farmer's Dashboard</h1>
             <h2>{data?.user?.username}</h2>
+            <Button onClick={()=>signOut()}>Sign Out</Button>
         </div>
     )
 }
