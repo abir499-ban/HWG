@@ -25,6 +25,7 @@ export default function Homr(){
         <div>
             <h1>This is a farmer's Dashboard</h1>
             <h2>{data?.user?.username}</h2>
+            <h2>{data?.role}</h2>
             <Button onClick={()=>signOut()}>Sign Out</Button>
         </div>
     )

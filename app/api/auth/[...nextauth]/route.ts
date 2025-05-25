@@ -7,10 +7,12 @@ declare module 'next-auth' {
         user: {
             username: string;
         };
+        role : string
     }
     interface User {
         username: string;
         accessToken: string;
+        role : string
     }
 }
 
@@ -79,6 +81,7 @@ export const authOptions: NextAuthOptions = {
             if (user) {
                 token.username = user.username
                 token.accessToken = user.accessToken
+                token.role = user.role
             }
             return token
         },
@@ -89,6 +92,7 @@ export const authOptions: NextAuthOptions = {
             session.user = {
                 username: token.username as string
             }
+            session.role = token.role as string
             return session
         }
     },
