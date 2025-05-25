@@ -98,7 +98,7 @@ const Signin = () => {
                         className="w-full bg-orange-500 hover:bg-orange-800 text-white hover:cursor-pointer"
                         disabled={isSubmitting}
                     >
-                        {isSubmitting ? "Signing Up..." : "Sign In"}
+                        {isSubmitting ? "Logging you In..." : "Sign In"}
                     </Button>
                 </form>
                 <Link href='/auth/signin' className='text-xm text-muted-foreground font-semibold underline'>Login as Farmer</Link>

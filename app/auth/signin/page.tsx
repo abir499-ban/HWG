@@ -98,7 +98,7 @@ const Signin = () => {
                         className="w-full bg-green-700 hover:bg-green-800 text-white hover:cursor-pointer"
                         disabled={isSubmitting}
                     >
-                        {isSubmitting ? "Signing Up..." : "Sign In"}
+                        {isSubmitting ? "Logging you in..." : "Sign In"}
                     </Button>
                 </form>
                 <Link href='/auth/loanshark/signin' className='text-xm text-muted-foreground font-semibold underline'>Login as Loan Shark</Link>
