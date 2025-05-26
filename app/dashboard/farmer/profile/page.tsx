@@ -2,29 +2,48 @@
 import DashboardStats from "@/components/shared/DashboardStats";
 import DashboardMetrics from "@/components/shared/DashboardMetric";
 import ProductivityChart from "@/components/shared/ProductivityChart";
-import {useSession} from 'next-auth/react'
-import {farmer} from '@/constants/demodata'
-import { useEffect } from "react";
-import {useRouter} from 'next/navigation'
+import { useSession } from 'next-auth/react'
+//import { farmer } from '@/constants/demodata'
+import { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation'
 import LoadingSpinner from "@/components/shared/Loader";
+import { defaultFarmerProfile, FarmerProfileSchema } from '@/utils/FarmerProfile.schema'
 
 const Index = () => {
-    const {status} = useSession()
+
+    const [farmer, setfarmer] = useState<FarmerProfileSchema>(defaultFarmerProfile)
+    const { status, data } = useSession()
     const router = useRouter()
-    
-    // useEffect(()=>{
-    //     if(status === 'unauthenticated'){
-    //         router.push('/auth/signin')
-    //     }
-    // }, [status])
 
-    // if(status === 'loading'){
-    //     return <LoadingSpinner/>
-    // }
+    useEffect(() => {
+        if (status === 'unauthenticated') {
+            router.push('/auth/signin')
+        }
+    }, [status])
 
-    // useEffect(()=>{
+    if (status === 'loading') {
+        return <LoadingSpinner />
+    }
 
-    // }, [])
+    useEffect(() => {
+        const fetchFarmerDetails = async () => {
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/farmer/profile/${data?.user.username}`, {
+                    method: 'GET',
+                    headers: {
+                        'authorization': `Bearer ${data?.accessToken}`
+                    }
+                })
+                const farmerDetails: FarmerProfileSchema = await res.json();
+                setfarmer(farmerDetails)
+            } catch (error) {
+                console.log(Error)
+            }
+        }
+        fetchFarmerDetails()
+
+    }, [])
+   
 
     return (
         <>

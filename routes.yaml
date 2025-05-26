@@ -46,6 +46,19 @@ Routes
 
 
 -Farmer Profile : '/dashboard/farmer/profile'
-  backend api : `GET /api/farmer/profile/{digitalId}`
-  expected request body : NONE
-  expected return (in json) : {} ###yet to be decided
+  backend api : `GET /api/farmer/profile/{username}`
+  expected request body : NONE,
+  request headers:{
+    authorization : 'Bearer <token>'}
+  expected return (in json) : {
+  name,
+    transactions,
+    loans,
+    loansRepaid,
+    productivityRecords: Array<{
+                          month,
+                          productivity,
+                          yield}>,
+    creditUtilization,
+    repaymentReliability,
+    landProductivity} 
