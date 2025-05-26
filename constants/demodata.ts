@@ -1,0 +1,23 @@
+export const farmer = {
+        name: "Murali Ganesh",
+        transactions: 87,
+        loans: 3,
+        loansRepaid: 2,
+        productivityRecords: [
+            { month: "Jan", productivity: 870, yield: 430 },
+            { month: "Feb", productivity: 910, yield: 520 },
+            { month: "Mar", productivity: 930, yield: 610 },
+            { month: "Apr", productivity: 860, yield: 485 },
+            { month: "May", productivity: 950, yield: 670 },
+            { month: "Jun", productivity: 1000, yield: 710 },
+            { month: "Jul", productivity: 800, yield: 400 },
+            { month: "Aug", productivity: 600, yield: 650 },
+            { month: "Sep", productivity: 850, yield: 850 },
+            { month: "Oct", productivity: 200, yield: 400 },
+            { month: "Nov", productivity: 700, yield: 550 },
+            { month: "Dec", productivity: 551, yield: 600 },
+        ],
+        creditUtilization: 73,
+        repaymentReliability: 92,
+        landProductivity: 82,
+    };
