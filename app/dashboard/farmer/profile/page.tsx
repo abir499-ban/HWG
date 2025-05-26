@@ -21,14 +21,13 @@ const Index = () => {
         }
     }, [status])
 
-    if (status === 'loading') {
-        return <LoadingSpinner />
-    }
+    
 
     useEffect(() => {
+        if(status === "unauthenticated") return
         const fetchFarmerDetails = async () => {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/farmer/profile/${data?.user.username}`, {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/farmer/profile/${data?.digitalID}`, {
                     method: 'GET',
                     headers: {
                         'authorization': `Bearer ${data?.accessToken}`
@@ -44,6 +43,9 @@ const Index = () => {
 
     }, [])
    
+    if (status === 'loading') {
+        return <LoadingSpinner />
+    }
 
     return (
         <>

@@ -21,3 +21,25 @@ export const farmer = {
         repaymentReliability: 92,
         landProductivity: 82,
     };
+
+export const lender = {
+    name: 'Avinash Sharma',
+    totalCapital: 2800000000, // 28,000,000.00 naira (in kobo)
+    avgLoanSize: 15000000, // 150,000.00 naira (in kobo)
+    interestRate: 20.5, // percent
+    repaymentTermMonths: 12,
+    acceptedCollateralTypes: ["land", "equipment", "vehicle"],
+    customerBaseSize: 410,
+    applicationsApproved: 352,
+    applicationsTotal: 432,
+    loansDefaulted: 19,
+    loansIssued: 377,
+    interestFees: 31200000, // in kobo
+    portfolioValue: 245000000, // in kobo
+    operatingExpenses: 1550000, // in kobo
+    totalIncome: 23400000, // in kobo
+}
+export const loanApprovalRate = (lender.applicationsApproved / lender.applicationsTotal) * 100;
+export const loanDefaultRate = (lender.loansDefaulted / lender.loansIssued) * 100;
+export const portfolioYield = (lender.interestFees / lender.portfolioValue) * 100;
+export const operationalEfficiency = (lender.operatingExpenses / lender.totalIncome) * 100;
