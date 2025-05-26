@@ -1,0 +1,51 @@
+Routes
+- Farmer SignUp : `/auth/signin`:
+  backend api : `POST /api/farmer/signup`
+  expected request body : {
+      name,
+      digitalId,
+      aadharCard,
+      dob,
+      bankAccount,
+      password}
+  expected return( in json) : {
+  success : boolean , message : string
+  }
+
+
+-Farmer SignIn : `/auth/signin`
+  backend api : `POST /api/farmer/login`
+  expected request body : {
+      digitalId,
+      password}
+  expected return( in json) : {
+  username : boolean , accessToken : string
+  }
+
+
+- Loan Shark SignUp: `/auth/loanshark/signup`
+  backend api : `POST /api/loanshark/signup`
+  expected request body : {
+          name,
+            aadharCard,
+            dob,
+            bankAccount,
+      }
+  expected return( in json) : {
+  success : boolean , message : string
+  }
+
+-Loan Shark Login : `auth/loanshark/signin`
+  backend api : `POST /api/loanshark/login`
+  expected request body : {
+      aadharCard,
+      password}
+  expected return( in json) : {
+  username : boolean , accessToken : string
+  }
+
+
+-Farmer Profile : '/dashboard/farmer/profile'
+  backend api : `GET /api/farmer/profile/{digitalId}`
+  expected request body : NONE
+  expected return (in json) : {} ###yet to be decided
