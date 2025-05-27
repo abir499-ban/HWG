@@ -81,7 +81,7 @@ export default function LenderDashboard({ params }: { params: Promise<{ aadharCa
                                 avgLoanSize={lender.avgLoanSize}
                                 interestRate={lender.interestRate}
                                 repaymentTermMonths={lender.repaymentTermMonths}
-                                acceptedCollateralTypes={lender.acceptedCollateralTypes}
+                                acceptedCollateral={lender.acceptedCollateral}
                                 customerBaseSize={lender.customerBaseSize}
                             />
                         </CardContent>

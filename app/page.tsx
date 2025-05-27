@@ -3,6 +3,8 @@ import React from 'react';
 import {useSession} from 'next-auth/react'
 import './globals.css';
 import AuthTabs from '@/components/shared/AuthTabs';
+import {Button} from '@/components/ui/button'
+import Link from 'next/link'
 
 const Index = () => {
   const {status} = useSession()
@@ -17,8 +19,13 @@ const Index = () => {
         {/* <p className="text-xl md:text-2xl font-mono font-bold text-[#f0cbb6] drop-shadow-lg mb-6 text-stroke">
           Funding the agriculture of Gujarat.
         </p> */}
-        {status === 'unauthenticated' && (
+        {status === 'unauthenticated' ? (
           <AuthTabs/>
+        ) : (
+          <Button  className='h-10 w-60 text-[20px] text-black  bg-amber-300 hover:bg-amber-500 hover:cursor-pointer transition-normal'
+          >
+           Visit Your Profile
+          </Button>
         )}
       </div>
     </div>

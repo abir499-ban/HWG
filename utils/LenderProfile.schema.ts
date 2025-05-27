@@ -4,7 +4,7 @@ export type lenderProfileType =  {
     avgLoanSize: number; 
     interestRate: number; 
     repaymentTermMonths: number;
-    acceptedCollateralTypes: string[];
+    acceptedCollateral: boolean;
     customerBaseSize: number;
     applicationsApproved: number;
     applicationsTotal: number;
@@ -26,7 +26,7 @@ export const defaultLenderProfile: lenderProfileType = {
   avgLoanSize: 0,
   interestRate: 0,
   repaymentTermMonths: 0,
-  acceptedCollateralTypes: [],
+  acceptedCollateral: false,
   customerBaseSize: 0,
   applicationsApproved: 0,
   applicationsTotal: 0,
@@ -41,3 +41,5 @@ export const defaultLenderProfile: lenderProfileType = {
   portfolioYield: 0,
   operationalEfficiency: 0
 };
+
+export const collateralTypes = ["land", "equipment", "vehicle"]

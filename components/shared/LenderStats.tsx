@@ -1,13 +1,14 @@
 "use client"
 import React from 'react'
 import { FileText, Users, Shield, IndianRupee } from "lucide-react";
+import {collateralTypes} from '@/utils/LenderProfile.schema'
 
 type Props = {
   totalCapital: number;
   avgLoanSize: number;
   interestRate: number;
   repaymentTermMonths: number;
-  acceptedCollateralTypes: string[];
+  acceptedCollateral: boolean;
   customerBaseSize: number;
 };
 
@@ -73,9 +74,16 @@ export function LenderStats(props: Props) {
       <div className="rounded-xl shadow-md px-4 py-4 flex flex-col justify-center items-start bg-indigo-50 text-indigo-700 min-h-[70px]">
         <div className="text-sm font-semibold mb-1">Collateral Types</div>
         <div className="flex flex-wrap gap-2">
-          {props.acceptedCollateralTypes.map(type => (
+          {props.acceptedCollateral ? (
+            collateralTypes.map(type => (
+              <span key={type} className="bg-indigo-100 text-indigo-700 rounded px-2 py-0.5 text-xs">{type}</span>
+            ))
+          ) : (
+            <span>Collateral Not Accepted</span>
+          )}
+          {/* {props.acceptedCollateralTypes.map(type => (
             <span key={type} className="bg-indigo-100 text-indigo-700 rounded px-2 py-0.5 text-xs">{type}</span>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>
