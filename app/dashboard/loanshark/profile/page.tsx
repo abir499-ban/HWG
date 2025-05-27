@@ -1,12 +1,49 @@
 "use client"
-import React from "react";
+import React, { useEffect,useState } from "react";
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { LenderStats } from "@/components/shared/LenderStats";
 import { LenderMetrics, LenderRatesPieChart } from "@/components/shared/LenderMetrics";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import {lender, loanApprovalRate , loanDefaultRate , portfolioYield , operationalEfficiency} from '@/constants/demodata'
+import { defaultLenderProfile, lenderProfileType } from "@/utils/LenderProfile.schema";
+import LoadingSpinner from "@/components/shared/Loader";
+//import { lender, loanApprovalRate, loanDefaultRate, portfolioYield, operationalEfficiency } from '@/constants/demodata'
 
 
 export default function LenderDashboard() {
+    const { data, status } = useSession()
+    const router = useRouter()
+    const [lender, setlender] = useState<lenderProfileType>(defaultLenderProfile)    
+
+    useEffect(() => {
+        if (status === 'unauthenticated') {
+            router.push('/auth/loanshark/signin')
+        }
+    }, [status])
+
+    useEffect(() => {
+        if (status === 'unauthenticated') return
+        const fetchLenderDetails = async() =>{
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/lender/profile/${data?.aadharCard}`)
+                const result = await res.json()
+                if(res?.ok && result){
+                    setlender(result)
+                }else{
+                    console.error("failed to fetch lender details")
+                }
+            } catch (error) {
+                console.error("Error "+error)
+            }
+        }
+        fetchLenderDetails()
+    }, [])
+
+    if(status === 'loading'){
+        return <LoadingSpinner/>
+    }
+
+
     return (
         <>
             <header className="h-14 flex items-center border-b bg-gradient-to-l from-orange-50 to-white/80 sticky top-0 z-20">
@@ -35,10 +72,10 @@ export default function LenderDashboard() {
                     </Card>
 
                     <LenderMetrics
-                        loanApprovalRate={loanApprovalRate}
-                        loanDefaultRate={loanDefaultRate}
-                        portfolioYield={portfolioYield}
-                        operationalEfficiency={operationalEfficiency}
+                        loanApprovalRate={lender.loanApprovalRate}
+                        loanDefaultRate={lender.loanDefaultRate}
+                        portfolioYield={lender.portfolioYield}
+                        operationalEfficiency={lender.operationalEfficiency}
                     />
 
                     <div className="my-3 flex flex-col justify-center items-center gap-4">

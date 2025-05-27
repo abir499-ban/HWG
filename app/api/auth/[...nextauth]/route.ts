@@ -9,12 +9,14 @@ declare module 'next-auth' {
         };
         role : string;
         digitalID? : string;
+        aadharCard? : string
     }
     interface User {
         username: string;
         accessToken: string;
         role : string;
         digitalID? : string;
+        aadharCard? : string;
     }
 }
 
@@ -85,6 +87,7 @@ export const authOptions: NextAuthOptions = {
                 token.accessToken = user.accessToken
                 token.role = user.role
                 token.digitalID = user.digitalID
+                token.aadharCard = user.aadharCard
             }
             return token
         },
@@ -97,6 +100,7 @@ export const authOptions: NextAuthOptions = {
             }
             session.role = token.role as string
             session.digitalID = token.digitalID as string
+            session.aadharCard = token.aadharCard as string
             return session
         }
     },
