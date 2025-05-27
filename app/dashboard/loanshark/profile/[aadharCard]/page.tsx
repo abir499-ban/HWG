@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { LenderStats } from "@/components/shared/LenderStats";
 import { LenderMetrics, LenderRatesPieChart } from "@/components/shared/LenderMetrics";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import {Button} from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { defaultLenderProfile, lenderProfileType } from "@/utils/LenderProfile.schema";
 import LoadingSpinner from "@/components/shared/Loader";
 //import { lender, loanApprovalRate, loanDefaultRate, portfolioYield, operationalEfficiency } from '@/constants/demodata'
@@ -45,7 +45,7 @@ export default function LenderDashboard({ params }: { params: Promise<{ aadharCa
             fetchLenderDetails()
 
         }
-    }, [status, router , aadharCard , data?.accessToken])
+    }, [status, router, aadharCard, data?.accessToken])
 
     if (status === 'loading') {
         return <LoadingSpinner />
@@ -65,11 +65,14 @@ export default function LenderDashboard({ params }: { params: Promise<{ aadharCa
                 <div className="max-w-5xl mx-auto px-4 py-10">
                     <Card className="mb-8 shadow-xl">
                         <CardHeader>
-                           <p className="text-4xl font-semibold text-orange-500">{lender.name} 
-                                <Button 
-                                className="rounded-3xl ml-6 hover:cursor-pointer border-1 border-black bg-gradient-to-t from-orange-50 to-white/80" 
-                                variant='secondary' 
-                                disabled={data?.role !== 'farmer'}>
+                            <p className="text-4xl font-semibold text-orange-500">{lender.name}
+                                <Button
+                                    onClick={() => {
+                                        router.push(`/dashboard/loan?farmerID=${data?.digitalID}&aadhaarID=${aadharCard}`);
+                                    }}
+                                    className="rounded-3xl ml-6 hover:cursor-pointer border-1 border-black bg-gradient-to-t from-orange-50 to-white/80"
+                                    variant='secondary'
+                                    disabled={data?.role !== 'farmer'}>
                                     Request a Loan</Button></p>
                         </CardHeader>
                         <CardContent>
