@@ -18,34 +18,31 @@ const Index = ({ params }: { params: Promise<{ digitalID: string }> }) => {
     useEffect(() => {
         if (status === 'unauthenticated') {
             router.push('/auth/signin')
-        }
-    }, [status])
-
-
-
-    useEffect(() => {
-        if (status === "unauthenticated") return
-        const fetchFarmerDetails = async () => {
-            try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/farmer/profile/${digitalID}`, {
-                    method: 'GET',
-                    headers: {
-                        'authorization': `Bearer ${data?.accessToken}`
+        } else {
+            //console.log(status, " ", data?.role, " ", data?.accessToken)
+            const fetchFarmerDetails = async () => {
+                try {
+                    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/farmer/profile/${digitalID}`, {
+                        method: 'GET',
+                        headers: {
+                            'authorization': `Bearer ${data?.accessToken}`
+                        }
+                    })
+                    const farmerDetails: FarmerProfileSchema = await res.json();
+                    if (res?.ok && farmerDetails) {
+                        console.log('All ok')
+                        setfarmer(farmerDetails)
                     }
-                })
-                const farmerDetails: FarmerProfileSchema = await res.json();
-                if (res?.ok && farmerDetails){
-                    console.log('All ok')
-                    setfarmer(farmerDetails)
+                    else console.error("failed to fetch farmer details")
+                } catch (error) {
+                    console.log(error)
                 }
-                else console.error("failed to fetch farmer details")
-            } catch (error) {
-                console.log(error)
             }
+            fetchFarmerDetails()
         }
-        fetchFarmerDetails()
+    }, [status, router , digitalID , data?.accessToken])
 
-    }, [])
+
 
     if (status === 'loading') {
         return <LoadingSpinner />
