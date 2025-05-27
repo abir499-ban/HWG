@@ -23,8 +23,10 @@ export default function Homr(){
 
     return(
         <div>
-            <h1>This is a farmer's Dashboard</h1>
+            <h1>This is a {data?.role}'s Dashboard</h1>
             <h2>{data?.user?.username}</h2>
+            <h2>Digital Farmer ID : {data?.digitalID}</h2>
+            <h2>Aadhar NUmber for Loan Lender: {data?.aadharCard}</h2>
             <h2>{data?.role}</h2>
             <Button onClick={()=>signOut()}>Sign Out</Button>
         </div>

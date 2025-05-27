@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect,useState } from "react";
+import React, { useEffect,useState,use } from "react";
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { LenderStats } from "@/components/shared/LenderStats";
@@ -10,7 +10,8 @@ import LoadingSpinner from "@/components/shared/Loader";
 //import { lender, loanApprovalRate, loanDefaultRate, portfolioYield, operationalEfficiency } from '@/constants/demodata'
 
 
-export default function LenderDashboard() {
+export default function LenderDashboard({params} : {params : Promise<{aadharCard : string}>}) {
+    const {aadharCard} = use(params) 
     const { data, status } = useSession()
     const router = useRouter()
     const [lender, setlender] = useState<lenderProfileType>(defaultLenderProfile)    
@@ -25,12 +26,18 @@ export default function LenderDashboard() {
         if (status === 'unauthenticated') return
         const fetchLenderDetails = async() =>{
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/lender/profile/${data?.aadharCard}`)
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/lender/profile/${aadharCard}`, {
+                    method : 'GET',
+                    headers: {
+                        'authorization': `Bearer ${data?.accessToken}`
+                    }
+                })
                 const result = await res.json()
                 if(res?.ok && result){
+                    console.log('All ok')
                     setlender(result)
                 }else{
-                    console.error("failed to fetch lender details")
+                    console.log("failed to fetch lender details")
                 }
             } catch (error) {
                 console.error("Error "+error)

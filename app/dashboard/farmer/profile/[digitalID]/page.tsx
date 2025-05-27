@@ -4,13 +4,13 @@ import DashboardMetrics from "@/components/shared/DashboardMetric";
 import ProductivityChart from "@/components/shared/ProductivityChart";
 import { useSession } from 'next-auth/react'
 //import { farmer } from '@/constants/demodata'
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import { useRouter } from 'next/navigation'
 import LoadingSpinner from "@/components/shared/Loader";
 import { defaultFarmerProfile, FarmerProfileSchema } from '@/utils/FarmerProfile.schema'
 
-const Index = () => {
-
+const Index = ({ params }: { params: Promise<{ digitalID: string }> }) => {
+    const { digitalID } = use(params)
     const [farmer, setfarmer] = useState<FarmerProfileSchema>(defaultFarmerProfile)
     const { status, data } = useSession()
     const router = useRouter()
@@ -21,28 +21,32 @@ const Index = () => {
         }
     }, [status])
 
-    
+
 
     useEffect(() => {
-        if(status === "unauthenticated") return
+        if (status === "unauthenticated") return
         const fetchFarmerDetails = async () => {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/farmer/profile/${data?.digitalID}`, {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/farmer/profile/${digitalID}`, {
                     method: 'GET',
                     headers: {
                         'authorization': `Bearer ${data?.accessToken}`
                     }
                 })
                 const farmerDetails: FarmerProfileSchema = await res.json();
-                setfarmer(farmerDetails)
+                if (res?.ok && farmerDetails){
+                    console.log('All ok')
+                    setfarmer(farmerDetails)
+                }
+                else console.error("failed to fetch farmer details")
             } catch (error) {
-                console.log(Error)
+                console.log(error)
             }
         }
         fetchFarmerDetails()
 
     }, [])
-   
+
     if (status === 'loading') {
         return <LoadingSpinner />
     }
