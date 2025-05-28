@@ -30,14 +30,23 @@ const Index = () => {
         {status === 'unauthenticated' ? (
           <AuthTabs />
         ) : (
-          <Button className='h-10 w-60 text-[20px] text-black  bg-amber-300 hover:bg-amber-500 hover:cursor-pointer transition-normal'
+          <div className='flex flex-col justify-center items-center gap-3'>
+          <Button variant='outline' className='h-10 w-60 text-[20px] text-black  bg-amber-300 hover:bg-amber-400 hover:cursor-pointer transition-normal'
           >
             <Link href={`/dashboard/${data?.role!}/profile/${authCredential}`}>Visit Your Profile</Link>
           </Button>
+          <Button variant='outline' className='h-10 w-60 text-[20px] text-black  bg-gradient-to-l from-orange-50 to-white/80 sticky top-0 z-10  hover:cursor-pointer transition-normal'
+          >
+            <Link href={`/dashboard/loanshark/view`}>View Loan Lenders</Link>
+          </Button>
+          </div>
         )}
+
+        
+          
       </div>
     </div>
   );
 };
 
-export default Index;
+export default Index; 

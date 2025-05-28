@@ -2,7 +2,7 @@
 import DashboardStats from "@/components/shared/DashboardStats";
 import DashboardMetrics from "@/components/shared/DashboardMetric";
 import ProductivityChart from "@/components/shared/ProductivityChart";
-import { useSession } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 import {Button} from '@/components/ui/button'
 //import { farmer } from '@/constants/demodata'
 import { useEffect, useState, use } from "react";
@@ -57,10 +57,18 @@ const Index = ({ params }: { params: Promise<{ digitalID: string }> }) => {
                     <span className="inline-block align-middle">🌾</span>
                     <span className="ml-2">Farmer Dashboard</span>
                 </h1>
+                <div className="flex flex-row gap-2">
                 {digitalID === data?.digitalID && (
                     <Button variant='outline' className="text-black font-light text-xl">
                         <Link href={`/dashboard/farmer/loans`}>View Your Loan Requests</Link></Button>
                 )}
+                {digitalID === data?.digitalID && (
+                    <Button variant='ghost' className="text-black font-light text-xl hover:cursor-pointer"
+                    onClick={()=> signOut()}>
+                        Sign Out
+                    </Button>
+                )}
+                </div>
             </header>
             <div className="flex min-h-screen w-full bg-gradient-to-r from-[#f1faee] via-[#e0fde3] to-[#f6fef9]">
                 <main className="flex-1 px-6 py-6 animate-fade-in">
