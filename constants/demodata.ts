@@ -1,3 +1,5 @@
+import { LoanApplicationType, LoanRequestFormType } from "@/utils/LoanRequest.schema";
+
 export const farmer = {
         name: "Murali Ganesh",
         transactions: 87,
@@ -43,3 +45,105 @@ export const loanApprovalRate = (lender.applicationsApproved / lender.applicatio
 export const loanDefaultRate = (lender.loansDefaulted / lender.loansIssued) * 100;
 export const portfolioYield = (lender.interestFees / lender.portfolioValue) * 100;
 export const operationalEfficiency = (lender.operatingExpenses / lender.totalIncome) * 100;
+
+
+
+export const demoloanApplications : LoanApplicationType[] = [
+  {
+    id: "FA001",
+    lenderName: "AgriBank Financial",
+    lenderLogo: "/placeholder.svg?height=40&width=40",
+    loanAmount: 75000,
+    purpose: "Equipment Purchase",
+    status: "Approved",
+    dateApplied: "2024-01-10",
+    lastUpdated: "2024-01-20",
+    requestedInterestRate: 4.5,
+    term: 60,
+    progress: 100,
+    documents: ["Application", "Financial Statements", "Equipment Quote"],
+    timeline: [
+      { date: "2024-01-10", event: "Application Submitted", status: "completed" },
+      { date: "2024-01-12", event: "Initial Review", status: "completed" },
+      { date: "2024-01-15", event: "Credit Check", status: "completed" },
+      { date: "2024-01-18", event: "Farm Inspection", status: "completed" },
+      { date: "2024-01-20", event: "Loan Approved", status: "completed" },
+    ],
+  },
+  {
+    id: "FA002",
+    lenderName: "Rural Development Bank",
+    lenderLogo: "/placeholder.svg?height=40&width=40",
+    loanAmount: 50000,
+    purpose: "Crop Financing",
+    status: "Under Review",
+    dateApplied: "2024-01-15",
+    lastUpdated: "2024-01-22",
+    requestedInterestRate: 3.8,
+    term: 12,
+    progress: 60,
+    documents: ["Application", "Financial Statements", "Crop Plan"],
+    timeline: [
+      { date: "2024-01-15", event: "Application Submitted", status: "completed" },
+      { date: "2024-01-17", event: "Initial Review", status: "completed" },
+      { date: "2024-01-20", event: "Credit Check", status: "completed" },
+      { date: "2024-01-22", event: "Additional Documents Requested", status: "current" },
+    ],
+  },
+  {
+    id: "FA003",
+    lenderName: "Farm Credit Union",
+    lenderLogo: "/placeholder.svg?height=40&width=40",
+    loanAmount: 120000,
+    purpose: "Land Purchase",
+    status: "Pending",
+    dateApplied: "2024-01-18",
+    lastUpdated: "2024-01-18",
+    requestedInterestRate: 5.2,
+    term: 240,
+    progress: 20,
+    documents: ["Application", "Property Appraisal"],
+    timeline: [
+      { date: "2024-01-18", event: "Application Submitted", status: "completed" },
+      { date: "2024-01-19", event: "Initial Review", status: "current" },
+    ],
+  },
+  {
+    id: "FA004",
+    lenderName: "Community Agricultural Lender",
+    lenderLogo: "/placeholder.svg?height=40&width=40",
+    loanAmount: 25000,
+    purpose: "Livestock Purchase",
+    status: "Rejected",
+    dateApplied: "2024-01-05",
+    lastUpdated: "2024-01-12",
+    requestedInterestRate: null,
+    term: 36,
+    progress: 40,
+    documents: ["Application", "Financial Statements"],
+    timeline: [
+      { date: "2024-01-05", event: "Application Submitted", status: "completed" },
+      { date: "2024-01-08", event: "Initial Review", status: "completed" },
+      { date: "2024-01-12", event: "Application Declined", status: "completed" },
+    ],
+  },
+  {
+    id: "FA005",
+    lenderName: "State Farm Development Fund",
+    lenderLogo: "/placeholder.svg?height=40&width=40",
+    loanAmount: 85000,
+    purpose: "Infrastructure Development",
+    status: "Document Required",
+    dateApplied: "2024-01-20",
+    lastUpdated: "2024-01-23",
+    requestedInterestRate: 4.2,
+    term: 84,
+    progress: 45,
+    documents: ["Application", "Project Plan", "Financial Statements"],
+    timeline: [
+      { date: "2024-01-20", event: "Application Submitted", status: "completed" },
+      { date: "2024-01-22", event: "Initial Review", status: "completed" },
+      { date: "2024-01-23", event: "Additional Documents Requested", status: "current" },
+    ],
+  },
+]

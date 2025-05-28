@@ -1,0 +1,25 @@
+LOANS = {
+  id : number,
+  loanAmount : number,
+  loanPurpose : number,
+  loanTermMonth : number,
+  requestedInterestRate : number | null,
+  lenderLogo: string,
+  purpose: string;
+  status: "Approved" | "Under Review" | "Pending" | "Rejected" | "Document Required";
+  dateApplied: string;
+  lastUpdated: string;
+  term: number;
+  progress: number;
+  documents: string[];
+  timeline: LoanTimelineEvent[];
+}
+
+LoanstatsType = {
+  total: number,
+  pending: number,
+  approved: number,
+  rejected: number,
+  totalAmount: number,
+  approvedAmount: number,
+}

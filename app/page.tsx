@@ -1,13 +1,21 @@
 "use client"
-import React from 'react';
-import {useSession} from 'next-auth/react'
+import React, { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react'
 import './globals.css';
 import AuthTabs from '@/components/shared/AuthTabs';
-import {Button} from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
 const Index = () => {
-  const {status} = useSession()
+  const { status, data } = useSession()
+  const [authCredential, setauthCredential] = useState("")
+
+  useEffect(() => {
+    if (data?.aadharCard) setauthCredential(data?.aadharCard!)
+    else setauthCredential(data?.digitalID!)
+  }, [status])
+
+
   return (
     <div
       className="relative min-h-screen bg-cover bg-no-repeat bg-[url('/assets/catch-crop-4133941.jpg')] flex flex-col items-center justify-center"
@@ -20,11 +28,11 @@ const Index = () => {
           Funding the agriculture of Gujarat.
         </p> */}
         {status === 'unauthenticated' ? (
-          <AuthTabs/>
+          <AuthTabs />
         ) : (
-          <Button  className='h-10 w-60 text-[20px] text-black  bg-amber-300 hover:bg-amber-500 hover:cursor-pointer transition-normal'
+          <Button className='h-10 w-60 text-[20px] text-black  bg-amber-300 hover:bg-amber-500 hover:cursor-pointer transition-normal'
           >
-           Visit Your Profile
+            <Link href={`/dashboard/${data?.role!}/profile/${authCredential}`}>Visit Your Profile</Link>
           </Button>
         )}
       </div>

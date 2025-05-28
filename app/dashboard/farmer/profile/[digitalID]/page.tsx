@@ -9,6 +9,7 @@ import { useEffect, useState, use } from "react";
 import { useRouter } from 'next/navigation'
 import LoadingSpinner from "@/components/shared/Loader";
 import { defaultFarmerProfile, FarmerProfileSchema } from '@/utils/FarmerProfile.schema'
+import Link from 'next/link'
 
 const Index = ({ params }: { params: Promise<{ digitalID: string }> }) => {
     const { digitalID } = use(params)
@@ -57,7 +58,8 @@ const Index = ({ params }: { params: Promise<{ digitalID: string }> }) => {
                     <span className="ml-2">Farmer Dashboard</span>
                 </h1>
                 {digitalID === data?.digitalID && (
-                    <Button variant='outline' className="text-black font-light text-xl">View Your Loan Requests</Button>
+                    <Button variant='outline' className="text-black font-light text-xl">
+                        <Link href={`/dashboard/farmer/loans`}>View Your Loan Requests</Link></Button>
                 )}
             </header>
             <div className="flex min-h-screen w-full bg-gradient-to-r from-[#f1faee] via-[#e0fde3] to-[#f6fef9]">

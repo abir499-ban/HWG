@@ -54,11 +54,14 @@ export default function LenderDashboard({ params }: { params: Promise<{ aadharCa
 
     return (
         <>
-            <header className="h-14 flex items-center border-b bg-gradient-to-l from-orange-50 to-white/80 sticky top-0 z-20">
+            <header className="h-14 flex items-center justify-between border-b bg-gradient-to-l from-orange-50 to-white/80 sticky top-0 z-20">
                 <h1 className="ml-4 text-2xl font-bold tracking-tight text-orange-500 animate-fade-in">
                     <span className="inline-block align-middle">💵</span>
                     <span className="ml-2">Loan Shark Dashboard</span>
                 </h1>
+                {aadharCard === data?.aadharCard && (
+                    <Button variant='outline' className="text-black font-light text-xl">View Your Loan Requests</Button>
+                )}
             </header>
 
             <main className="flex-1 px-6 py-3 animate-fade-in">
