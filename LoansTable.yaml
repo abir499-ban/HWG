@@ -1,5 +1,7 @@
 LOANS = {
   id : number,
+  aadharID: string,
+  farmerId : string,
   loanAmount : number,
   loanPurpose : number,
   loanTermMonth : number,
@@ -15,11 +17,8 @@ LOANS = {
   timeline: LoanTimelineEvent[];
 }
 
-LoanstatsType = {
-  total: number,
-  pending: number,
-  approved: number,
-  rejected: number,
-  totalAmount: number,
-  approvedAmount: number,
-}
+export type LoanTimelineEvent = {
+  date: string;
+  event: "Application Submitted" | "Initial Review" | "Credit Check" | "Farm Inspection" | "Loan Approved" | "Additional Documents Requested" | "Application Declined";
+  status : string;
+};
