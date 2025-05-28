@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState, use } from "react";
-import { useSession } from 'next-auth/react'
+import { useSession,signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { LenderStats } from "@/components/shared/LenderStats";
 import { LenderMetrics, LenderRatesPieChart } from "@/components/shared/LenderMetrics";
@@ -8,6 +8,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button'
 import { defaultLenderProfile, lenderProfileType } from "@/utils/LenderProfile.schema";
 import LoadingSpinner from "@/components/shared/Loader";
+import Link from 'next/link'
 //import { lender, loanApprovalRate, loanDefaultRate, portfolioYield, operationalEfficiency } from '@/constants/demodata'
 
 
@@ -59,9 +60,18 @@ export default function LenderDashboard({ params }: { params: Promise<{ aadharCa
                     <span className="inline-block align-middle">💵</span>
                     <span className="ml-2">Loan Shark Dashboard</span>
                 </h1>
+                <div className="flex flex-row gap-2">
                 {aadharCard === data?.aadharCard && (
-                    <Button variant='outline' className="text-black font-light text-xl">View Your Loan Requests</Button>
+                    <Button variant='outline' className="text-black font-light text-xl">
+                        <Link href={`/dashboard/loanshark/loans`}>View Your Loan Requests</Link></Button>
                 )}
+                {aadharCard === data?.aadharCard && (
+                    <Button variant='ghost' className="text-black font-light text-xl hover:cursor-pointer"
+                    onClick={()=> signOut()}>
+                        Sign Out
+                    </Button>
+                )}
+                </div>
             </header>
 
             <main className="flex-1 px-6 py-3 animate-fade-in">

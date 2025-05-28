@@ -1,4 +1,4 @@
-import { LoanApplicationType, LoanRequestFormType } from "@/utils/LoanRequest.schema";
+import { LoanApplicationType, LoanRequestFormType, LoanViewForLenderType } from "@/utils/LoanRequest.schema";
 import { LenderViewType } from '@/utils/LenderView.schema'
 
 export const farmer = {
@@ -194,3 +194,63 @@ export const demolenders: LenderViewType[] = [
     applicationsApproved: 63,
   },
 ];
+
+
+
+export const demoloanRequests : LoanViewForLenderType[]= [
+  {
+    id: "LR001",
+    farmerName: "John Smith",
+    loanAmount: 50000,
+    loanPurpose: "Home Renovation",
+    loanTermMonth: 6,
+    status: "Pending",
+    dateApplied: "2024-01-15",
+  },
+  {
+    id: "LR002",
+    farmerName: "Sarah Johnson",
+    loanAmount: 25000,
+    loanPurpose: "Debt Consolidation",
+    loanTermMonth: 8,
+    status: "Approved",
+    dateApplied: "2024-01-14",
+  },
+  {
+    id: "LR003",
+    farmerName: "Michael Brown",
+    loanAmount: 75000,
+    loanPurpose: "Business Expansion",
+    loanTermMonth: 15,
+    status: "Under Review",
+    dateApplied: "2024-01-13",
+  },
+  {
+    id: "LR004",
+    farmerName: "Emily Davis",
+    loanAmount: 15000,
+    loanPurpose: "Medical Expenses",
+    loanTermMonth: 6,
+    status: "Rejected",
+    dateApplied: "2024-01-12",
+  },
+  {
+    id: "LR005",
+    farmerName: "David Wilson",
+    loanAmount: 100000,
+    loanPurpose: "Home Purchase",
+    loanTermMonth: 10,
+    status: "Pending",
+    dateApplied: "2024-01-11",
+   
+  },
+  {
+    id: "LR006",
+    farmerName: "Lisa Anderson",
+    loanAmount: 30000,
+    loanPurpose: "Education",
+    loanTermMonth: 8,
+    status: "Approved",
+    dateApplied: "2024-01-10",
+  },
+]

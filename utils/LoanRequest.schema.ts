@@ -53,3 +53,15 @@ export type LoanstatsType = {
   approvedAmount: number,
 }
 
+
+export type LoanViewForLenderType = {
+  id : string,
+  farmerName : string,   // derived from the Farmer Tbale using farmerID 
+  loanAmount : number,
+  loanPurpose : string,
+  loanTermMonth : number,
+  status : "Approved" | "Under Review" | "Pending" | "Rejected" | "Document Required",
+  dateApplied: string,
+}
+
+export type LoanViewStatsType = Omit<LoanstatsType, "approvedAmount">

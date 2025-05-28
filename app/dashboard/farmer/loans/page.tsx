@@ -69,7 +69,7 @@ export default function Component() {
     useEffect(() => {
         const fetchLoansOfFarmer = async () => {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/farmer/loans/${farmerID}`, {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/farmer/loans/fetch/${farmerID}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

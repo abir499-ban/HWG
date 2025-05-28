@@ -11,8 +11,8 @@ const Index = () => {
   const [authCredential, setauthCredential] = useState("")
 
   useEffect(() => {
-    if (data?.aadharCard) setauthCredential(data?.aadharCard!)
-    else setauthCredential(data?.digitalID!)
+    if(data?.digitalID) setauthCredential(data.digitalID)
+    else if (data?.aadharCard) setauthCredential(data.aadharCard)
   }, [status])
 
 
