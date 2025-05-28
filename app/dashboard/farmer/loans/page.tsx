@@ -38,7 +38,7 @@ export const getStatusIcon = (status: string) => {
 
 
 export default function Component() {
-    const { data } = useSession()
+    const { data, status } = useSession()
     const farmerID = data?.digitalID
     const [loanApplications, setloanApplications] = useState<LoanApplicationType[]>(demoloanApplications)
     const [searchTerm, setSearchTerm] = useState("")
@@ -88,7 +88,7 @@ export default function Component() {
             }
         }
         fetchLoansOfFarmer()
-    }, [])
+    }, [status])
 
     return (
         <div className="min-h-screen bg-gradient-to-l from-green-200/50 to-white/80 p-4 md:p-6 lg:p-8">
