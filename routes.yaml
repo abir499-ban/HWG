@@ -1,52 +1,63 @@
 Routes
-- Farmer SignUp : `/auth/signin`:
-  backend api : `POST /api/farmer/signup`
+
+
+//Farmer Sign UP
+-backend api : `POST /api/farmer/signup`  
   expected request body : {
-      name,
-      digitalId,
-      aadharCard,
-      dob,
-      bankAccount,
-      password}
+      name : string,
+      digitalId : string,
+      aadharCard : string,
+      dob : date,
+      bankAccount : string,
+      password : string}
   expected return( in json) : {
   success : boolean , message : string
   }
 
 
--Farmer SignIn : `/auth/signin`
-  backend api : `POST /api/farmer/login`
+
+//Farmer Sign Login
+-backend api : `POST /api/farmer/login`
   expected request body : {
-      digitalId,
+      digitalID,
       password}
   expected return( in json) : {
-  username : boolean , accessToken : string
+        digitalID: string,
+        username: string,
+        accessToken: string,
+        role: 'farmer'
   }
 
 
-- Loan Shark SignUp: `/auth/loanshark/signup`
-  backend api : `POST /api/loanshark/signup`
+//LoanShark Sign up
+- backend api : `POST /api/loanshark/signup`
   expected request body : {
-          name,
-            aadharCard,
-            dob,
-            bankAccount,
+            name : string,
+            aadharCard : string,
+            dob : date,
+            bankAccount : string,
+            password : string
       }
   expected return( in json) : {
   success : boolean , message : string
   }
 
--Loan Shark Login : `auth/loanshark/signin`
-  backend api : `POST /api/loanshark/login`
+
+//LoanShark Login
+-backend api : `POST /api/loanshark/login`
   expected request body : {
       aadharCard,
       password}
   expected return( in json) : {
-  username : boolean , accessToken : string
+        aadharCard : string,
+        username: string,
+        accessToken: string,
+        role: 'loanshark'
   }
 
 
--Farmer Profile : '/dashboard/farmer/profile'
-  backend api : `GET /api/farmer/profile/{username}`
+//Fetching a Farmer Profile
+-backend api : `GET /api/farmer/profile/${digitalID}`
   expected request body : NONE,
   request headers:{
     authorization : 'Bearer <token>'}
@@ -61,4 +72,124 @@ Routes
                           yield}>,
     creditUtilization,
     repaymentReliability,
-    landProductivity} 
+    landProductivity}
+
+
+//Fetching Loan Applications of a Farmer
+-backend api : `GET /api/farmer/loans/fetch/${farmerID}`
+   expected request body : NONE,
+  request headers:{
+    authorization : 'Bearer <token>'}
+    expected return (in json) : {
+    id: string;
+    lenderName: string;
+    lenderLogo: string;
+    loanAmount: number;
+    purpose: string;
+    status: "Approved" | "Under Review" | "Pending" | "Rejected" | "Document Required";
+    dateApplied: string;
+    lastUpdated: string;
+    requestedInterestRate: number | null;
+    term: number;
+    progress: number;
+    documents: string[];
+    timeline: {date : string ,
+              event :"Application Submitted" | "Initial Review" | "Credit Check" | "Farm Inspection" | "Loan Approved" | "Additional Documents Requested" | "Application Declined",
+              status : string} [];
+    }[]
+
+
+
+//Creating a Loan Application
+-backend api : 'POST /api/loan/create'
+  expected request body : {
+        farmerId : string,
+        aadharID : string,
+        loanAmount : number,
+        loanPurpose : string,
+        loanTermMonths : number,
+        requestedInterestRate : float | null
+  }
+  request headers:{
+    authorization : 'Bearer <token>'}
+  expected return(in json):{
+        message : 'Success Message',
+        success : true
+  }
+
+
+//Fetching a Loan Shark Profile
+ -backend api : `GET /api/lender/profile/${aadharCard}`
+  expected request body : NONE,
+  request headers:{
+    authorization : 'Bearer <token>'}
+  expected return ( in json):{
+      name: string;
+    totalCapital: number; 
+    avgLoanSize: number; 
+    interestRate: number; 
+    repaymentTermMonths: number;
+    acceptedCollateral: boolean;
+    customerBaseSize: number;
+    applicationsApproved: number;
+    applicationsTotal: number;
+    loansDefaulted: number;
+    loansIssued: number;
+    interestFees: number; 
+    portfolioValue: number; 
+    operatingExpenses: number; 
+    totalIncome: number; 
+    loanApprovalRate : number;
+    loanDefaultRate : number;
+    portfolioYield : number;
+    operationalEfficiency : number
+    }
+
+
+//Fetching the Profiles of all lenders:
+-backend api : `GET /api/lenders`
+  expected request body : NONE,
+  request headers:{
+    authorization : 'Bearer <token>'}
+  return type ( in json):{
+  id : string,
+    aadharCard : string,
+    name : string,
+    lenderLogo : string,
+    totalCapital : number,
+    applicationsApproved : number}[]
+
+
+//Fetching the Loan Applications of a lender
+-backend api : `GET /api/loanshark/loans/fetch/${aadharCard}
+ expected request body : NONE,
+  request headers:{
+    authorization : 'Bearer <token>'}
+  return type ( in json):{
+    id : string,
+    farmerName : string,   // derived from the Farmer Tbale using farmerID 
+    loanAmount : number,
+    loanPurpose : string,
+    loanTermMonth : number,
+    status : "Approved" | "Under Review" | "Pending" | "Rejected" | "Document Required",
+    dateApplied: string,
+  }[]
+
+
+//Approving a Loan Reqeust with id
+-backend api : `PUT /api/loanshark/loans/approve/${id}`
+expected request body : NONE,
+  request headers:{
+    authorization : 'Bearer <token>'}
+  expected return ( in json) : {
+  message : string,
+  success : boolean}
+
+//Reejecting the Loan request with id
+-backend api : `PUT /api/loanshark/loans/reject/${id}`
+expected request body : NONE,
+  request headers:{
+    authorization : 'Bearer <token>'}
+  expected return ( in json) : {
+  message : string,
+  success : boolean}

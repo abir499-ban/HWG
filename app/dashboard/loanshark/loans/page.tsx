@@ -74,7 +74,7 @@ export default function Component() {
     const approveLoan = async(id : string) => {
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/loanshark/loans/approve/${id}`, {
-               method: 'PATCH',
+               method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                         'authorization': `Bearer ${data?.accessToken}`
@@ -91,7 +91,7 @@ export default function Component() {
     const rejectLoan = async(id : string) => {
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/loanshark/loans/reject/${id}`, {
-               method: 'PATCH',
+               method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                         'authorization': `Bearer ${data?.accessToken}`
