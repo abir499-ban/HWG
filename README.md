@@ -78,5 +78,7 @@ AgriFund empowers farmers to access fair and timely credit by building detailed 
    ```bsh
        npm run dev
    ```
+
+4. Then visit http://localhost:3000/ to experince thr Project.
    
 
