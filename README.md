@@ -1,7 +1,7 @@
 # AgriFund
 
 AgriFund is a comprehensive digital platform that connects farmers with loan lenders, streamlining agricultural financing through transparent credit evaluation, robust profile management, and a data-driven loan matching process.
-
+[Check out the demo video](https://www.youtube.com/watch?v=sddOa8N7BPo)
 ---
 
 ## Table of Contents
@@ -11,11 +11,6 @@ AgriFund is a comprehensive digital platform that connects farmers with loan len
 - [How It Works](#how-it-works)
 - [Tech Stack](#tech-stack)
 - [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
 
 ---
 
